@@ -23,14 +23,11 @@ const registerConcurrencySetter = (lambdaClient, handlerRegister) => {
   }
 
   handlerRegister[commandType] = handler
-
-  return handlerRegister
 }
 
 const registerAllHandlers = (lambdaClient, handlerRegister) => {
   registerConcurrencySetter(lambdaClient, handlerRegister)
-
-  return handlerRegister
+  // todo: add more handler in here
 }
 
 module.exports = {

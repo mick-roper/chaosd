@@ -24,6 +24,8 @@ const socket = io(server, {
 const handlers = createHandlerDictionary()
 const processor = createCommandProcessor(socket, handlers, logger)
 
+logger.info(handlers)
+
 socket
   .on('system', logger.warn)
   .on('connect_error', logger.error)
