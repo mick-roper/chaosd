@@ -25,7 +25,7 @@ module.exports.createApp = ({ port }) => {
   const router = createRouter()
   router.applyRoutes(server)
 
-  createGremlinListener(server.server, accessKeyValidator, loggerFactory.createLogger({ type: 'gremlin' }))
+  createGremlinListener(server.server, createAccessKeyValidator(), loggerFactory.createLogger({ type: 'gremlin' }))
 
   const app = {
     listen: () => server.listen(port, () => console.log('server listening on port', port)), // eslint-disable-line no-console
@@ -38,6 +38,6 @@ const apiKeyValidator = {
   validate: key => key === 'abc123' ? { identity: 'dummy user' } : undefined
 }
 
-const accessKeyValidator = () => ({
+const createAccessKeyValidator = () => ({
   validateKey: async (key) => key == 'abc-123'
 })
