@@ -1,6 +1,6 @@
 const restify = require('restify')
 
-const { createLogger } = require('./logger')
+const loggerFactory = require('./logger')
 
 const { 
   createApiKeyMiddleware, 
@@ -15,7 +15,7 @@ module.exports.createApp = ({ port }) => {
 
   server
     .use(restify.plugins.bodyParser(), restify.plugins.queryParser())
-    .use(createLoggingMiddleware())
+    .use(createLoggingMiddleware(loggerFactory))
     .use(createApiKeyMiddleware(apiKeyValidator))
     .use(createRequiresIdentityMiddleware())
 

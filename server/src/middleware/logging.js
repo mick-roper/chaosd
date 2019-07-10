@@ -10,9 +10,9 @@ const generateRequestId = () => {
   return str
 }
 
-module.exports.createLoggingMiddleware = (loggerFactory) => {
-  if (!loggerFactory) {
-    throw new Error('loggerFactory is not defined')
+module.exports.createLoggingMiddleware = ({ createLogger }) => {
+  if (!createLogger) {
+    throw new Error('createLogger is not defined')
   }
 
   return async (req, res, next) => {
@@ -20,7 +20,7 @@ module.exports.createLoggingMiddleware = (loggerFactory) => {
     const requestId = generateRequestId()
     const correlationId = headers['x-correlation-id']
 
-    req.logger = loggerFactory({ requestId, correlationId })
+    req.logger = createLogger({ requestId, correlationId })
     res.header('x-request-id', requestId)
 
     if (correlationId) {
