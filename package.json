@@ -7,7 +7,11 @@
     "test": "npm run test:server && npm run test:gremlins",
     "test:server": "cd server && npm test",
     "test:gremlins": "npm run test:aws-gremlin",
-    "test:aws-gremlin": "cd gremlins/aws && npm test"
+    "test:aws-gremlin": "cd gremlins/aws && npm test",
+    "lint": "npm run lint:server && npm run lint:gremlins",
+    "lint:server": "eslint server",
+    "lint:gremlins": "npm run lint:aws-gremlin",
+    "lint:aws-gremlin": "eslint gremlins/aws"
   },
   "repository": {
     "type": "git",
@@ -25,7 +29,9 @@
     "eslint-config-airbnb": "17.1.1",
     "eslint-plugin-import": "2.18.0",
     "eslint-plugin-jest": "22.7.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-react": "7.14.2",
     "jest": "24.8.0"
   }
 }
