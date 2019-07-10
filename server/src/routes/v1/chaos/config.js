@@ -8,7 +8,13 @@ module.exports.createConfigRouter = () => {
   router.get('/:serviceId', async (req, res, next) => {
     const { serviceId } = req.params
 
-    const serviceConfigs = store[serviceId] || {}
+    const serviceConfigs = store[serviceId]
+
+    if (!serviceConfigs) {
+      res.status(404)
+      res.json({})
+      return next()
+    }    
 
     res.status(200)
     res.json(serviceConfigs)
