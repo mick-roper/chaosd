@@ -1,4 +1,4 @@
-module.exports.createCommandProcessor = (socket, handlers, logger) => command => {
+module.exports.createCommandProcessor = (socket, handlers = {}, logger) => command => {
   if (!command) {
     socket.emit('status', { type: 'warn', message: 'received an empy command' })
     return
@@ -11,5 +11,21 @@ module.exports.createCommandProcessor = (socket, handlers, logger) => command =>
     return
   }
 
-  logger.info(command)
+  logger.info({ message: 'command recieved', command })
+
+  const handler = handlers[type]
+
+  if (handler) {
+    handler(payload)
+      .then(() => {
+        logger.info({ message: 'command handled successfully' })
+        socket.emit('status', { type: 'info', message: 'command handled successfully', command })
+        return
+      })
+      .catch(err => {
+        logger.error(err)
+        socket.emit('status', { type: 'error', message: 'handling the command caused an error', command, err })
+        return
+      })
+  }
 }
