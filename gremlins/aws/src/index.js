@@ -5,16 +5,15 @@ const { loadConfigFrom } = require('./config')
 const { createCommandProcessor } = require('./command-processor')
 const { createHandlerDictionary } = require('./handlers')
 
-const { server, host, region, account, accessKey } = loadConfigFrom(process.env)
+const { server, region, account, accessKey } = loadConfigFrom(process.env)
 
-const logger = createLogger({ host })
+const logger = createLogger()
 
 logger.info(`attempting to connect to ${server}`)
 
 const socket = io(server, { 
   path: '/gremlin', 
-  query: { 
-    host, 
+  query: {
     region, 
     account, 
     accessKey, 
