@@ -39,5 +39,5 @@ const apiKeyValidator = {
 }
 
 const createAccessKeyValidator = () => ({
-  validateKey: async (key) => key == 'abc-123'
+  validateKey: async (key) => key == 'abc123'
 })
