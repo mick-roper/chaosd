@@ -9,8 +9,6 @@ module.exports.createGremlinListener = (server, { validateKey }, register, logge
       handshake: { query: { cloud, host, region, account, accessKey } }
     } = socket
 
-    logger.info({ cloud, host, region, account, accessKey })
-
     validateKey(accessKey)
       .then(isValid => {
         if (isValid !== true) {
