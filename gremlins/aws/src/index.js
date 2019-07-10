@@ -2,6 +2,7 @@ const { Manager } = require('socket.io-client')
 
 const { createLogger } = require('./logger')
 const { loadConfigFrom } = require('./config')
+const { createCommandProcessor } = require('./command-processor')
 
 const { server, host } = loadConfigFrom(process.env)
 
@@ -16,11 +17,13 @@ const manager = new Manager(server, {
   path: '/gremlin/aws'
 })
 
-manager.connect(logger.error)
+manager.on('connect_error', logger.error)
+manager.on('connect_timeout', logger.error)
+manager.on('reconnecting', i => logger.info(`reconnection attempt: ${i}`))
 
-manager.on('command', logger.info)
-
-manager.on('info', logger.info)
+manager.on('command', createCommandProcessor())
 
 // open the connection
+logger.info('opening the connection to the server...')
+
 manager.open(logger.error)
