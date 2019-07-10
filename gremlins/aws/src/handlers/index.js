@@ -3,11 +3,10 @@ const aws = require('aws-sdk')
 const lambda = require('./lambda')
 
 module.exports.createHandlerDictionary = () => {
-  const lambdaClient = new aws.Lambda()
-  
-  const handlerRegister = {}
+  const register = {}
+  const lambdaClient = new aws.Lambda({ httpOptions: { timeout: 1000 } })
 
-  lambda.registerAllHandlers(lambdaClient, handlerRegister)
+  lambda.registerAllHandlers(lambdaClient, register)
 
-  return handlerRegister
+  return register
 }

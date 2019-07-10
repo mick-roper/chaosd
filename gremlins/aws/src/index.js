@@ -22,9 +22,8 @@ const socket = io(server, {
 })
 
 const handlers = createHandlerDictionary()
-const processor = createCommandProcessor(socket, handlers, logger)
 
-logger.info(handlers)
+const commandProcessor = createCommandProcessor(socket, handlers, logger)
 
 socket
   .on('system', logger.warn)
@@ -32,4 +31,4 @@ socket
   .on('connect_timeout', logger.error)
   .on('reconnecting', i => logger.info(`reconnection attempt: ${i}`))
   .on('connect', () => logger.info(`connected to ${server}`))
-  .on('command', processor)
+  .on('command', commandProcessor)

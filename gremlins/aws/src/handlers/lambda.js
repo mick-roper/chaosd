@@ -1,3 +1,5 @@
+const defaultLogger = { info: () => {} }
+
 const registerConcurrencySetter = (lambdaClient, handlerRegister) => {
   const commandType = 'aws:lambda:set-concurrency'
 
@@ -9,7 +11,7 @@ const registerConcurrencySetter = (lambdaClient, handlerRegister) => {
     throw new Error(`the handlers collection is undefined or already has a handler registered for type '${commandType}'`)
   }
 
-  const handler = async ({ functionName, reservedConcurrency }) => {
+  const handler = async ({ functionName, reservedConcurrency }, logger = defaultLogger) => {
     if (!functionName) {
       throw new Error('no lambda function name')
     }
@@ -18,6 +20,8 @@ const registerConcurrencySetter = (lambdaClient, handlerRegister) => {
       FunctionName: functionName,
       ReservedConcurrentExecutions: reservedConcurrency
     }
+
+    logger.info({ message: 'asynchronously invoking putFunctionConcurrency', params })
 
     return lambdaClient.putFunctionConcurrency(params).promise()
   }
