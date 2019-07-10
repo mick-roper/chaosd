@@ -2,7 +2,7 @@ const socketio = require('socket.io')
 
 const gremlins = {}
 
-module.exports.createGremlinListener = (server, logger) => {
+module.exports.createGremlinListener = (server, { validateKey }, logger) => {
   const io = socketio.listen(server, { path: '/gremlin' })
 
   io.on('connection', socket => {
@@ -13,15 +13,29 @@ module.exports.createGremlinListener = (server, logger) => {
 
     logger.info({ cloud, host, region, account, accessKey })
 
-    gremlins[id] = socket
+    validateKey(accessKey)
+      .then(isValid => {
+        if (isValid !== true) {
+          socket.emit('system', { type: 'disconnect', reason: 'unauthorised' })
 
-    logger.info({ message: 'connected to gremlin', id })
+          socket.disconnect(true)
 
-    socket.on('status', data => logger.info({ message: 'info from gremlin', id, data }))
+          return
+        }
 
-    socket.on('disconnect', () => {
-      logger.info({ message: 'disconnected from gremlin', id })
-      delete gremlins[id]
-    })
+        gremlins[id] = socket
+
+        logger.info({ message: 'connected to gremlin', id })
+    
+        socket.on('status', data => logger.info({ message: 'info from gremlin', id, data }))
+    
+        socket.on('disconnect', () => {
+          logger.info({ message: 'disconnected from gremlin', id })
+          delete gremlins[id]
+        })
+
+        return
+      })
+      .catch(logger.error)
   })
 }
