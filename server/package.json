@@ -6,6 +6,7 @@
     "test": "echo \"Error: no test specified\""
   },
   "dependencies": {
+    "joi": "^14.3.1",
     "restify": "8.3.3",
     "restify-router": "^0.5.1"
   }

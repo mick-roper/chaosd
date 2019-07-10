@@ -1,12 +1,14 @@
 const { Router } = require('restify-router')
 
+const { getValidationErrors } = require('./config.schema')
+
 const store = {}
 
 module.exports.createConfigRouter = () => {
   const router = new Router()
 
   router.get('/:serviceId', async (req, res, next) => {
-    const { serviceId } = req.params
+    const { params: { serviceId } } = req
 
     const serviceConfigs = store[serviceId]
 
@@ -22,7 +24,7 @@ module.exports.createConfigRouter = () => {
   })
 
   router.post('/:serviceId', async (req, res, next) => {
-    const { serviceId } = req.params
+    const { params: {serviceId}, body } = req
 
     if (store[serviceId]) {
       res.status(400)
@@ -30,7 +32,15 @@ module.exports.createConfigRouter = () => {
       return next()
     }
 
-    store[serviceId] = req.body
+    const validationError = getValidationErrors(body)
+
+    if (validationError) {
+      res.status(400)
+      res.json(validationError)
+      return next()
+    }
+
+    store[serviceId] = body
 
     res.status(201)
     res.json({})
@@ -38,11 +48,19 @@ module.exports.createConfigRouter = () => {
   })
 
   router.put('/:serviceId', async (req, res, next) => {
-    const { serviceId } = req.params
+    const { params: { serviceId }, body } = req
 
     if (!store[serviceId]) {
       res.status(400)
       res.json({ message: `Service does not exist. You must create it before trying to update it.` })
+      return next()
+    }
+
+    const validationError = getValidationErrors(body)
+
+    if (validationError) {
+      res.status(400)
+      res.json(validationError)
       return next()
     }
 
@@ -54,7 +72,7 @@ module.exports.createConfigRouter = () => {
   })
 
   router.del('/:serviceId', async (req, res, next) => {
-    const { serviceId } = req.params
+    const { params: {serviceId} } = req
 
     delete store[serviceId]
 
