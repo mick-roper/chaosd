@@ -2,6 +2,11 @@
   "name": "chaosd-aws-gremlin",
   "main": "index.js",
   "scripts": {
+    "start:local": "export CHAOSD_SERVER=http://localhost:8080 && node src/index.js",
     "test": "echo \"Error: no test specified\""
+  },
+  "dependencies": {
+    "aws-sdk": "2.490.0",
+    "socket.io-client": "2.2.0"
   }
 }
