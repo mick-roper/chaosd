@@ -14,7 +14,7 @@ module.exports.createChaosConfigRouter = () => {
 
     if (!config) {
       res.status(400)
-      res.json({ message: `config ${version} does not exist` })
+      res.json({ message: `config '${version}' does not exist` })
       return next()
     }
 
