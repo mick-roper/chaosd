@@ -1,0 +1,9 @@
+{
+  "extends": ["airbnb", "plugin:jest/recommended", "eslint:recommended", "plugin:promise/recommended"],
+  "plugins": ["promise", "jest", "import"],
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  }
+}
