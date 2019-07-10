@@ -1,6 +1,6 @@
 const restify = require('restify')
-const socketio = require('socket.io')
 
+const { createGremlinListener } = require('./gremlins')
 const loggerFactory = require('./logger')
 
 const { 
@@ -11,6 +11,8 @@ const {
 } = require('./middleware')
 
 const { createRouter } = require('./routes')
+
+const logger = loggerFactory.createLogger({ type: 'server' })
 
 module.exports.createApp = ({ port }) => {
   const server = restify.createServer()
@@ -25,15 +27,7 @@ module.exports.createApp = ({ port }) => {
   const router = createRouter()
   router.applyRoutes(server)
 
-  const io = socketio.listen(server.server, { path: '/gremlin' })
-
-  io.on('connection', socket => {
-    const logger = loggerFactory.createLogger()
-
-    logger.info('connected to gremlin')
-
-    socket.emit('command', { hello: 'world' })
-  })
+  createGremlinListener(server.server, loggerFactory.createLogger({ type: 'gremlin' }))
 
   const app = {
     listen: () => server.listen(port, () => console.log('server listening on port', port)), // eslint-disable-line no-console
