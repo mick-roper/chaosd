@@ -6,7 +6,12 @@ module.exports.createGremlinListener = (server, logger) => {
   const io = socketio.listen(server, { path: '/gremlin' })
 
   io.on('connection', socket => {
-    const { id } = socket
+    const { 
+      id,
+      handshake: { query: { cloud, host, region, account, accessKey } }
+    } = socket
+
+    logger.info({ cloud, host, region, account, accessKey })
 
     gremlins[id] = socket
 
