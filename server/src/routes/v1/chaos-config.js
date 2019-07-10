@@ -22,8 +22,7 @@ module.exports.createChaosConfigRouter = () => {
 
     res.status(200)
     res.json(config)
-
-    return next()
+    next()
   })
 
   router.post('/:serviceId', async (req, res, next) => {
@@ -42,7 +41,25 @@ module.exports.createChaosConfigRouter = () => {
 
     res.status(201)
     res.json({})
-    return next()
+    next()
+  })
+
+  router.put('/:serviceId', async (req, res, next) => {
+    const { serviceId } = req.params
+    const { version = latest } = req.query
+
+    store[serviceId] = store[serviceId] || {}
+    if (!store[serviceId][version]) {
+      res.status(400)
+      res.json({ message: `Config ${version} does not exist. You must create it before trying to update it.` })
+      return next()
+    }
+
+    store[serviceId][version] = req.body
+
+    res.status(200)
+    res.json({})
+    next()
   })
   
   return router
