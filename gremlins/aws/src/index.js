@@ -3,6 +3,7 @@ const io = require('socket.io-client')
 const { createLogger } = require('./logger')
 const { loadConfigFrom } = require('./config')
 const { createCommandProcessor } = require('./command-processor')
+const { createHandlerDictionary } = require('./handlers')
 
 const { server, host, region, account, accessKey } = loadConfigFrom(process.env)
 
@@ -21,10 +22,13 @@ const socket = io(server, {
   } 
 })
 
+const handlers = createHandlerDictionary()
+const processor = createCommandProcessor(socket, handlers, logger)
+
 socket
   .on('system', logger.warn)
   .on('connect_error', logger.error)
   .on('connect_timeout', logger.error)
   .on('reconnecting', i => logger.info(`reconnection attempt: ${i}`))
   .on('connect', () => logger.info(`connected to ${server}`))
-  .on('command', createCommandProcessor(socket, logger))
+  .on('command', processor)

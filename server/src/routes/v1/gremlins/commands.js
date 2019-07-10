@@ -5,7 +5,7 @@ const { getValidationError } = require('./command.schema')
 module.exports.createCommandRoutes = (register) => {
   const router = new Router()
   
-  router.post('', async (req, res, next) => {
+  router.post('', (req, res, next) => {
     const { params: { gremlinId }, body } = req
 
     const validationError = getValidationError(body)

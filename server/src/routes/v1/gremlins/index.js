@@ -11,7 +11,7 @@ module.exports.createGremlinRoutes = (register) => {
     next()
   })
 
-  router.add('/:gremlinId/commands', createCommandRoutes(register))
+  router.add('/:gremlinId/command', createCommandRoutes(register))
 
   return router
 }

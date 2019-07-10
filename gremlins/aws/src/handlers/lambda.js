@@ -9,14 +9,14 @@ const registerConcurrencySetter = (lambdaClient, handlerRegister) => {
     throw new Error(`the handlers collection is undefined or already has a handler registered for type '${commandType}'`)
   }
 
-  const handler = async ({ lambdaFunctionName, reservedConcurrentExecutions }) => {
-    if (!lambdaFunctionName) {
+  const handler = async ({ functionName, reservedConcurrency }) => {
+    if (!functionName) {
       throw new Error('no lambda function name')
     }
 
     const params = {
-      FunctionName: lambdaFunctionName,
-      ReservedConcurrentExecutions: reservedConcurrentExecutions
+      FunctionName: functionName,
+      ReservedConcurrentExecutions: reservedConcurrency
     }
 
     return lambdaClient.putFunctionConcurrency(params).promise()

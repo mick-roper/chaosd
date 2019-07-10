@@ -23,7 +23,7 @@ module.exports.createGremlinListener = (server, { validateKey }, register, logge
           cloud,
           region,
           account,
-          emit: socket.emit
+          emit: (type, data) => socket.emit(type, data)
         }
 
         logger.info({ message: 'connected to gremlin', id })
