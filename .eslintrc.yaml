@@ -1,3 +1,7 @@
+rules:
+  semi:
+    - error
+    - never
 extends:
   - airbnb
   - plugin:jest/recommended
