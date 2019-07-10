@@ -12,8 +12,6 @@ const {
 
 const { createRouter } = require('./routes')
 
-const logger = loggerFactory.createLogger({ type: 'server' })
-
 module.exports.createApp = ({ port }) => {
   const server = restify.createServer()
 
