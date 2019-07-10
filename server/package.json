@@ -8,6 +8,7 @@
   "dependencies": {
     "joi": "^14.3.1",
     "restify": "8.3.3",
-    "restify-router": "^0.5.1"
+    "restify-router": "^0.5.1",
+    "socket.io": "^2.2.0"
   }
 }
