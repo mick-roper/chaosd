@@ -5,7 +5,9 @@ module.exports.loadConfigFrom = (source) => {
 
   const {
     HOST,
-    CHAOSD_SERVER
+    CHAOSD_SERVER,
+    AWS_REGION,
+    AWS_ACCOUNT
   } = source
 
   if (!CHAOSD_SERVER) {
@@ -14,6 +16,8 @@ module.exports.loadConfigFrom = (source) => {
   
   return  {
     host: HOST,
-    server: CHAOSD_SERVER
+    server: CHAOSD_SERVER,
+    region: AWS_REGION,
+    account: AWS_ACCOUNT
   }
 }
