@@ -1,15 +1,15 @@
 const joi = require('joi')
 
 const schema = joi.object().keys({
-  error: {
+  error: joi.object({
     chance: joi.number().min(0).max(1).required(),
     statusCode: joi.number().min(0).max(600).required()
-  },
-  latency: {
+  }),
+  latency: joi.object({
     chance: joi.number().min(0).max(1).required(),
     minMillis: joi.number().min(0).max(600000).required(),
     maxMillis: joi.number().min(0).max(600000).required(),
-  }
+  })
 })
 
 module.exports.getValidationErrors = data => {
