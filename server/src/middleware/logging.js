@@ -20,7 +20,10 @@ module.exports.createLoggingMiddleware = ({ createLogger }) => {
     const requestId = generateRequestId()
     const correlationId = headers['x-correlation-id']
 
-    req.logger = createLogger({ requestId, correlationId })
+    const logger = req.logger = createLogger({ requestId, correlationId })
+
+    logger.info({ message: 'handling request', headers })
+
     res.header('x-request-id', requestId)
 
     if (correlationId) {
