@@ -1,10 +1,20 @@
 {
   "name": "chaosd",
-  "version": "0.0.1",
-  "repository": "git@github.com:mick-roper/chaosd.git",
-  "author": "mick-roper <mick@theropers.co.uk> <mick.roper@dazn.com>",
-  "license": "MIT",
-  "workspaces": [
-    "packages/*"
-  ]
+  "version": "1.0.0",
+  "description": "Chaos engineering for serverless frameworks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mick-roper/chaosd.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mick-roper/chaosd/issues"
+  },
+  "homepage": "https://github.com/mick-roper/chaosd#readme"
 }
