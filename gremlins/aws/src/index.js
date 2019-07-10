@@ -13,6 +13,7 @@ logger.info(`attempting to connect to ${server}`)
 const socket = io(server, { path: '/gremlin', query: { host, region, account, accessKey } })
 
 socket
+  .on('system', logger.warn)
   .on('connect_error', logger.error)
   .on('connect_timeout', logger.error)
   .on('reconnecting', i => logger.info(`reconnection attempt: ${i}`))
