@@ -23,12 +23,13 @@ module.exports.createGremlinListener = (server, { validateKey }, register, logge
           cloud,
           region,
           account,
-          emit: (type, data) => socket.emit(type, data)
+          emit: (type, data) => socket.emit(type, data),
+          statusUpdates: []
         }
 
         logger.info({ message: 'connected to gremlin', id })
     
-        socket.on('status', data => logger.info({ message: 'info from gremlin', id, data }))
+        socket.on('status', data => register[id].statusUpdates.push({ timestamp: Date.now(), ...data }))
     
         socket.on('disconnect', () => {
           logger.info({ message: 'disconnected from gremlin', id })
