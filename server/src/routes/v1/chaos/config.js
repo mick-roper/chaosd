@@ -15,7 +15,7 @@ module.exports.createConfigRouter = () => {
     if (!serviceConfigs) {
       res.status(404)
       res.json({})
-      return next()
+      return next(false)
     }    
 
     res.status(200)
@@ -37,7 +37,7 @@ module.exports.createConfigRouter = () => {
     if (validationError) {
       res.status(400)
       res.json(validationError)
-      return next()
+      return next(false)
     }
 
     store[serviceId] = body
@@ -53,7 +53,7 @@ module.exports.createConfigRouter = () => {
     if (!store[serviceId]) {
       res.status(400)
       res.json({ message: `Service does not exist. You must create it before trying to update it.` })
-      return next()
+      return next(false)
     }
 
     const validationError = getValidationErrors(body)
@@ -61,7 +61,7 @@ module.exports.createConfigRouter = () => {
     if (validationError) {
       res.status(400)
       res.json(validationError)
-      return next()
+      return next(false)
     }
 
     store[serviceId] = req.body
