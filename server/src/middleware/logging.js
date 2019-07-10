@@ -1,13 +1,13 @@
 const generateRequestId = () => {
-  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  const length = Math.max(10, Math.floor(Math.random() * 25))
-  let str = ''
+  const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const length = Math.max(15, Math.floor(Math.random() * 25))
+  const array = [length]
 
   for (let i = 0; i < length; i++) {
-    str += chars.charAt(Math.floor(Math.random() * chars.length))
+    array[i] = chars.charAt(Math.floor(Math.random() * chars.length))
   }
 
-  return str
+  return array.join('')
 }
 
 module.exports.createLoggingMiddleware = ({ createLogger }) => {
