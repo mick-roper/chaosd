@@ -30,6 +30,6 @@ module.exports.createLoggingMiddleware = ({ createLogger }) => {
       res.header('x-correlation-id', correlationId)
     }
 
-    await next()
+    return next()
   }
 }
