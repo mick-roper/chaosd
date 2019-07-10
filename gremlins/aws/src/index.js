@@ -21,7 +21,7 @@ manager.on('connect_error', logger.error)
 manager.on('connect_timeout', logger.error)
 manager.on('reconnecting', i => logger.info(`reconnection attempt: ${i}`))
 
-manager.on('command', createCommandProcessor())
+manager.on('command', createCommandProcessor(logger))
 
 // open the connection
 logger.info('opening the connection to the server...')

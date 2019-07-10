@@ -1,3 +1,1 @@
-module.exports.createCommandProcessor = () => () => {
-  // todo: implement this
-}
+module.exports.createCommandProcessor = (logger) => command => logger.info(command)
