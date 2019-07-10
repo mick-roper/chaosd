@@ -1,0 +1,10 @@
+{
+  "name": "chaosd",
+  "version": "0.0.1",
+  "repository": "git@github.com:mick-roper/chaosd.git",
+  "author": "mick-roper <mick@theropers.co.uk> <mick.roper@dazn.com>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ]
+}
