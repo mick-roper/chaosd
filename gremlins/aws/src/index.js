@@ -17,6 +17,7 @@ const manager = new Manager(server, {
   path: '/gremlin'
 })
 
+manager.on('connected', () => logger.info(`connected to ${server}`))
 manager.on('connect_error', logger.error)
 manager.on('connect_timeout', logger.error)
 manager.on('reconnecting', i => logger.info(`reconnection attempt: ${i}`))
