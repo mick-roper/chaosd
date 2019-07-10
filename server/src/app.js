@@ -1,7 +1,11 @@
-module.exports.createApp = () => {
-  const app = {
-    listen: port => console.log('listening on port', port),
-  };
+const restify = require('restify')
 
-  return app;
-};
+module.exports.createApp = ({ port }) => {
+  const server = restify.createServer()
+
+  const app = {
+    listen: () => server.listen(port, () => console.log('server listening on port', port)), // eslint-disable-line no-console
+  }
+
+  return app
+}
