@@ -1,8 +1,6 @@
 const socketio = require('socket.io')
 
-const gremlins = {}
-
-module.exports.createGremlinListener = (server, { validateKey }, logger) => {
+module.exports.createGremlinListener = (server, { validateKey }, register, logger) => {
   const io = socketio.listen(server, { path: '/gremlin' })
 
   io.on('connection', socket => {
@@ -23,7 +21,13 @@ module.exports.createGremlinListener = (server, { validateKey }, logger) => {
           return
         }
 
-        gremlins[id] = socket
+        register[id] = {
+          cloud,
+          host,
+          region,
+          account,
+          emit: socket.emit
+        }
 
         logger.info({ message: 'connected to gremlin', id })
     
@@ -31,7 +35,7 @@ module.exports.createGremlinListener = (server, { validateKey }, logger) => {
     
         socket.on('disconnect', () => {
           logger.info({ message: 'disconnected from gremlin', id })
-          delete gremlins[id]
+          delete register[id]
         })
 
         return

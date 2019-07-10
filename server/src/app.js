@@ -22,10 +22,12 @@ module.exports.createApp = ({ port }) => {
     .use(createApiKeyMiddleware(apiKeyValidator))
     .use(createRequiresIdentityMiddleware())
 
-  const router = createRouter()
-  router.applyRoutes(server)
+  const gremlinRegsiter = {}
 
-  createGremlinListener(server.server, createAccessKeyValidator(), loggerFactory.createLogger({ type: 'gremlin' }))
+  createGremlinListener(server.server, createAccessKeyValidator(), gremlinRegsiter, loggerFactory.createLogger({ type: 'gremlin' }))
+
+  const router = createRouter(gremlinRegsiter)
+  router.applyRoutes(server)
 
   const app = {
     listen: () => server.listen(port, () => console.log('server listening on port', port)), // eslint-disable-line no-console
