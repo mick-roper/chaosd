@@ -1,4 +1,5 @@
 const restify = require('restify')
+const socketio = require('socket.io')
 
 const loggerFactory = require('./logger')
 
@@ -23,6 +24,16 @@ module.exports.createApp = ({ port }) => {
 
   const router = createRouter()
   router.applyRoutes(server)
+
+  const io = socketio.listen(server.server, { path: '/gremlin' })
+
+  io.on('connection', socket => {
+    const logger = loggerFactory.createLogger()
+
+    logger.info('connected to gremlin')
+
+    socket.emit('command', { hello: 'world' })
+  })
 
   const app = {
     listen: () => server.listen(port, () => console.log('server listening on port', port)), // eslint-disable-line no-console

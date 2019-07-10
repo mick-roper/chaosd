@@ -14,7 +14,7 @@ const manager = new Manager(server, {
   secure: false,
   reconnection: true,
   timeout: 5000,
-  path: '/gremlin/aws'
+  path: '/gremlin'
 })
 
 manager.on('connect_error', logger.error)
