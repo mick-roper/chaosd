@@ -10,7 +10,16 @@ const logger = createLogger({ host })
 
 logger.info(`attempting to connect to ${server}`)
 
-const socket = io(server, { path: '/gremlin', query: { host, region, account, accessKey } })
+const socket = io(server, { 
+  path: '/gremlin', 
+  query: { 
+    host, 
+    region, 
+    account, 
+    accessKey, 
+    cloud: 'aws'
+  } 
+})
 
 socket
   .on('system', logger.warn)

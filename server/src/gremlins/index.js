@@ -6,7 +6,7 @@ module.exports.createGremlinListener = (server, { validateKey }, register, logge
   io.on('connection', socket => {
     const { 
       id,
-      handshake: { query: { cloud, host, region, account, accessKey } }
+      handshake: { query: { cloud, region, account, accessKey } }
     } = socket
 
     validateKey(accessKey)
@@ -21,7 +21,6 @@ module.exports.createGremlinListener = (server, { validateKey }, register, logge
 
         register[id] = {
           cloud,
-          host,
           region,
           account,
           emit: socket.emit

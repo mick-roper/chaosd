@@ -2,7 +2,7 @@
   "name": "chaosd-aws-gremlin",
   "main": "index.js",
   "scripts": {
-    "start:local": "export CHAOSD_SERVER=http://localhost:8080 && export CHAOSD_ACCESS_KEY=abc123 && node src/index.js",
+    "start:local": "CHAOSD_SERVER=http://localhost:8080 CHAOSD_ACCESS_KEY=abc123 AWS_REGION=localhost AWS_ACCOUNT=xyz HOST=$HOST node src/index.js",
     "test": "echo \"Error: no test specified\""
   },
   "dependencies": {
