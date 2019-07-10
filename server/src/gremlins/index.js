@@ -5,12 +5,6 @@ const gremlins = {}
 module.exports.createGremlinListener = (server, logger) => {
   const io = socketio.listen(server, { path: '/gremlin' })
 
-  setTimeout(() => {
-    Object.keys(gremlins).forEach(k => {
-      gremlins[k].emit('command', { hello: 'world' })
-    })
-  }, 5000)
-
   io.on('connection', socket => {
     const { id } = socket
 
@@ -18,9 +12,7 @@ module.exports.createGremlinListener = (server, logger) => {
 
     logger.info({ message: 'connected to gremlin', id })
 
-    socket.emit('command', { hello: 'world' })
-
-    socket.on('info', data => logger.info({ message: 'info from gremlin', id, data }))
+    socket.on('status', data => logger.info({ message: 'info from gremlin', id, data }))
 
     socket.on('disconnect', () => {
       logger.info({ message: 'disconnected from gremlin', id })
