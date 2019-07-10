@@ -2,25 +2,46 @@ const { Router } = require('restify-router')
 
 const store = {}
 
+const latest = "$LATEST"
+
 module.exports.createChaosConfigRouter = () => {
   const router = new Router()
 
   router.get('/:serviceId', async (req, res, next) => {
     const { serviceId } = req.params
-    const { version = "$LATEST" } = req.query
+    const { version = latest } = req.query
 
-    const serviceConfigs = store[serviceId] | []
+    const serviceConfigs = store[serviceId] || {}
     const config = serviceConfigs[version]
 
     if (!config) {
       res.status(400)
-      res.json({ message: `config '${version}' does not exist` })
+      res.json({ message: `Config '${version}' does not exist` })
       return next()
     }
 
     res.status(200)
     res.json(config)
 
+    return next()
+  })
+
+  router.post('/:serviceId', async (req, res, next) => {
+    const { serviceId } = req.params
+    const { version = latest } = req.query
+
+    store[serviceId] = store[serviceId] || {}
+
+    if (version !== latest && store[serviceId][version]) {
+      res.status(400)
+      res.json({ message: `A config with version '${version}' already exists. Perform a PUT to update it.` })
+      return next()
+    }
+
+    store[serviceId][version] = req.body
+
+    res.status(201)
+    res.json({})
     return next()
   })
   
