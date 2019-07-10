@@ -4,7 +4,10 @@
   "description": "Chaos engineering for serverless frameworks",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:server && npm run test:gremlins",
+    "test:server": "cd server && npm test",
+    "test:gremlins": "npm run test:aws-gremlin",
+    "test:aws-gremlin": "cd gremlins/aws && npm test"
   },
   "repository": {
     "type": "git",
