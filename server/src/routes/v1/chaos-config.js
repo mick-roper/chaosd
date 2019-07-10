@@ -61,6 +61,16 @@ module.exports.createChaosConfigRouter = () => {
     res.json({})
     next()
   })
+
+  router.del('/:serviceId', async (req, res, next) => {
+    const { serviceId } = req.params
+
+    delete store[serviceId]
+
+    res.status(200)
+    res.json({})
+    next()
+  })
   
   return router
 }
