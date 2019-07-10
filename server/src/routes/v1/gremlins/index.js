@@ -1,5 +1,7 @@
 const { Router } = require('restify-router')
 
+const { createCommandRoutes } = require('./commands')
+
 module.exports.createGremlinRoutes = (register) => {
   const router = new Router()
   
@@ -8,6 +10,8 @@ module.exports.createGremlinRoutes = (register) => {
     res.json(register)
     next()
   })
+
+  router.add('/:gremlinId/commands', createCommandRoutes(register))
 
   return router
 }
