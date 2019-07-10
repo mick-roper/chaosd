@@ -1,6 +1,6 @@
 const generateRequestId = () => {
   const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  const length = Math.floor(Math.random() * 25)
+  const length = Math.max(10, Math.floor(Math.random() * 25))
   let str = ''
 
   for (let i = 0; i < length; i++) {
