@@ -1,5 +1,11 @@
 {
   "name": "chaosd",
+  "licenses": [
+    {
+      "type": "MIT License",
+      "url": "https://raw.githubusercontent.com/mick-roper/chaosd/master/LICENSE"
+    }
+  ],
   "version": "1.0.0",
   "description": "Chaos engineering for serverless frameworks",
   "main": "index.js",
