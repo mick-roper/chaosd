@@ -17,7 +17,9 @@ aws.config.update({
       rejectUnauthorized: true,
       maxSockets: 50
     })
-  }
+  },
+  region,
+  maxRetries: 3
 })
 
 const logger = createLogger()
