@@ -10,8 +10,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
 
       - run: |
           yarn workspaces run install
@@ -28,13 +26,22 @@ jobs:
             mv /tmp/docker/* /usr/bin
 
       - run:
-          name: Build & Push Image
+          name: Build & Push Control Plane
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             cd server
             docker build -t chaosd/control-plane:$TAG .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push chaosd/control-plane:$TAG
+      
+      - run:
+          name: Build & Push AWS Gremlin
+          command: |
+            TAG=0.1.$CIRCLE_BUILD_NUM
+            cd gremlins/aws
+            docker build -t chaosd/gremlin-aws:$TAG .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push chaosd/gremlin-aws:$TAG
 
 workflows:
   version: 2
