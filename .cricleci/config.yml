@@ -18,6 +18,6 @@ jobs:
 
     steps:
       - checkout
-      - run: yarn install
+      - run: yarn workspaces run install
       # run tests!
       - run: yarn test

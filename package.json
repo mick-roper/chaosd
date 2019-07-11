@@ -5,14 +5,9 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "test": "npm run test:server && npm run test:gremlins",
-    "test:server": "cd server && npm test",
-    "test:gremlins": "npm run test:aws-gremlin",
-    "test:aws-gremlin": "cd gremlins/aws && npm test",
-    "lint": "npm run lint:server && npm run lint:gremlins",
-    "lint:server": "eslint server",
-    "lint:gremlins": "npm run lint:aws-gremlin",
-    "lint:aws-gremlin": "eslint gremlins/aws"
+    "install": "yarn workspaces run install",
+    "test": "yarn workspaces run test",
+    "lint": "eslint **/*.js"
   },
   "repository": {
     "type": "git",
