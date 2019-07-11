@@ -19,5 +19,5 @@ jobs:
     steps:
       - checkout
       - run: yarn workspaces run install
-      # run tests!
+      - run: yarn lint
       - run: yarn test
