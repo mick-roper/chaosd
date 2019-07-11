@@ -1,6 +1,6 @@
 {
   "version": "0.0.1",
-  "name": "chaosd-server",
+  "name": "chaosd-control-plane",
   "main": "index.js",
   "scripts": {
     "start:local": "export PORT=8080 && node src/index.js",

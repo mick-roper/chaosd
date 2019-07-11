@@ -32,7 +32,7 @@ jobs:
           name: Build & Push Control Plane
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
-            cd server
+            cd control-plane
             docker build -t chaosd/control-plane:$TAG .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push chaosd/control-plane:$TAG

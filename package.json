@@ -37,7 +37,7 @@
     "jest": "24.8.0"
   },
   "workspaces": {
-    "packages": ["server", "gremlins/*"],
+    "packages": ["control-plane", "gremlins/*"],
     "nohoist": ["**"]
   }
 }
