@@ -1,3 +1,5 @@
+const aws = require('aws-sdk')
+const { Agent } = require('https')
 const io = require('socket.io-client')
 
 const { createLogger } = require('./logger')
@@ -6,6 +8,17 @@ const { createCommandProcessor } = require('./command-processor')
 const { createHandlerDictionary } = require('./handlers')
 
 const { server, region, account, accessKey } = loadConfigFrom(process.env)
+
+aws.config.update({
+  httpOptions: {
+    timeout: 2000,
+    agent: new Agent({
+      keepAlive: true,
+      rejectUnauthorized: true,
+      maxSockets: 50
+    })
+  }
+})
 
 const logger = createLogger()
 
@@ -21,7 +34,7 @@ const socket = io(server, {
   } 
 })
 
-const handlers = createHandlerDictionary()
+const handlers = createHandlerDictionary(aws)
 
 const commandProcessor = createCommandProcessor(socket, handlers, logger)
 
