@@ -1,4 +1,8 @@
 module.exports.createApiKeyMiddleware = ({ validate }) => {
+  if (!validate) {
+    throw new Error('validate is not defined')
+  }
+
   return async (req, res, next) => {
     const { headers: { authorization } } = req
 
