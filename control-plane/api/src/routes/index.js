@@ -7,11 +7,5 @@ module.exports.createRouter = (gremlinRegister) => {
 
   router.add('/api/v1', createV1Routes(gremlinRegister))
 
-  router.add('*', (_, res, next) => {
-    res.status(200)
-    res.send('<html><body><h1>Hello, World!</h1></body></html>')
-    next()
-  })
-
   return router
 }
