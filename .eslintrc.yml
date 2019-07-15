@@ -11,6 +11,8 @@ plugins:
   - promise
   - jest
   - import
+  - vue
+  - react
 env:
   es6: true
   node: true
