@@ -8,7 +8,9 @@ This application mananges the chaos. From here you can:
 
 * view the gremlins that are connected to the control plance
 * invoke adhoc chaos commands
-* create new chaos incidents - you can also (try) to revoke them if you feel they have gone too far.
+* create new chaos incidents - you can also (try to) revoke them if you feel they have gone too far.
+
+![Application Infrastructure](docs/images/infrastructure-v1.png)
 
 ### Security
 
