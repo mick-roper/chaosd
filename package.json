@@ -29,6 +29,7 @@
   "devDependencies": {
     "eslint": "5.3.0",
     "eslint-config-airbnb": "17.1.1",
+    "eslint-config-react-app": "4.0.1",
     "eslint-plugin-import": "2.18.0",
     "eslint-plugin-jest": "22.7.2",
     "eslint-plugin-jsx-a11y": "6.2.3",
@@ -38,9 +39,11 @@
   },
   "workspaces": {
     "packages": [
-      "control-plane/*", 
+      "control-plane/*",
       "gremlins/*"
     ],
-    "nohoist": ["**"]
+    "nohoist": [
+      "**"
+    ]
   }
 }
