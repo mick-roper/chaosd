@@ -42,7 +42,7 @@
   "workspaces": {
     "packages": [
       "control-plane/*",
-      "gremlins/*"
+      "gremlins/**/*"
     ],
     "nohoist": [
       "**"
