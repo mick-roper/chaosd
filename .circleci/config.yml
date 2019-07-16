@@ -38,7 +38,7 @@ jobs:
             docker push chaosd/control-plane:$TAG
       
       - run:
-          name: Build & Push AWS Gremlin
+          name: Build & Push AWS Lambda Gremlin
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             cd gremlins/aws/lambda
