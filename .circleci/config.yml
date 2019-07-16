@@ -44,7 +44,7 @@ jobs:
             cd gremlins/aws/lambda
             docker build -t chaosd/gremlin-aws-lambda:$TAG .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push chaosd/gremlin-aws:$TAG
+            docker push chaosd/gremlin-aws-lambda:$TAG
 
 workflows:
   version: 2
