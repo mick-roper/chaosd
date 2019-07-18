@@ -36,8 +36,8 @@ jobs:
             docker build -t chaosd/control-plane .
             docker tag chaosd/control-plane chaosd/control-plane:$TAG
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push chaosd/control-plane
             docker push chaosd/control-plane:$TAG
+            docker push chaosd/control-plane
       
       - run:
           name: Build & Push AWS Lambda Gremlin
@@ -47,5 +47,5 @@ jobs:
             docker build -t chaosd/gremlin-aws-lambda .
             docker tag chaosd/gremlin-aws-lambda chaosd/gremlin-aws-lambda:$TAG
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push chaosd/gremlin-aws-lambda
             docker push chaosd/gremlin-aws-lambda:$TAG
+            docker push chaosd/gremlin-aws-lambda
