@@ -33,7 +33,7 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             cd control-plane/api
-            docker build -t chaosd/control-plane:$TAG -t chaosd/control-plane:$LATEST .
+            docker build -t chaosd/control-plane:$TAG .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push chaosd/control-plane:$TAG
       
@@ -42,11 +42,10 @@ jobs:
           command: |
             TAG=0.1.$CIRCLE_BUILD_NUM
             cd gremlins/aws/lambda
-            docker build -t chaosd/gremlin-aws-lambda:$TAG -t chaosd/gremlin-aws-lambda:$LATEST .
+            docker build -t chaosd/gremlin-aws-lambda:$TAG .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push chaosd/gremlin-aws-lambda:$TAG
 
-workflows:
   version: 2
   workflow:
     jobs:
